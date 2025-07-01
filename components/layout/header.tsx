@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
@@ -24,14 +24,20 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
-import { useCart } from '@/components/providers/cart-provider';
+import { useCartStore } from '@/lib/store';
 
 export function Header() {
   const router = useRouter();
   const { data: session } = useSession();
-  const { count: cartCount } = useCart();
+  const cartCount = useCartStore((state) => state.count);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [mounted, setMounted] = useState(false);
+  
+  // Set mounted state to true after component mounts
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -108,16 +114,19 @@ export function Header() {
             )}
 
             {/* Cart */}
-            <Button variant="ghost" size="sm" asChild className="relative">
-              <Link href="/cart">
-                <ShoppingCart className="h-5 w-5" />
-                {cartCount > 0 && (
-                  <Badge className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs min-w-[1.25rem] h-5">
-                    {cartCount > 99 ? '99+' : cartCount}
-                  </Badge>
-                )}
-              </Link>
-            </Button>
+            <div className="relative">
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/cart">
+                  <ShoppingCart className="h-5 w-5" />
+                </Link>
+              </Button>
+              {/* Only render the count badge on the client side after mounting */}
+              {mounted && cartCount > 0 && (
+                <div className="absolute -top-2 -right-2 flex h-5 w-5 min-w-[1.25rem] items-center justify-center rounded-full bg-blue-600 text-xs font-medium text-white">
+                  {cartCount > 99 ? '99+' : cartCount}
+                </div>
+              )}
+            </div>
 
             {/* User Menu */}
             {session ? (

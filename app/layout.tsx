@@ -1,9 +1,10 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Toaster } from 'sonner';
+import { Toaster as SonnerToaster } from 'sonner';
+import { Toaster as HotToaster } from 'react-hot-toast';
 import { AuthProvider } from '@/components/providers/auth-provider';
-import { CartProvider } from '@/components/providers/cart-provider';
+import { CartStoreInitializer } from '@/components/providers/cart-store-initializer';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 
@@ -24,16 +25,17 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <CartProvider>
-            <div className="min-h-screen flex flex-col">
-              <Header />
-              <main className="flex-1">
-                {children}
-              </main>
-              <Footer />
-            </div>
-            <Toaster position="top-right" />
-          </CartProvider>
+          {/* Initialize the cart store */}
+          <CartStoreInitializer />
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </div>
+          <SonnerToaster position="top-right" />
+          <HotToaster position="top-center" />
         </AuthProvider>
       </body>
     </html>

@@ -2,15 +2,16 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Heart, ShoppingCart, Star, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { useCart } from '@/components/providers/cart-provider';
+// Removed useCart import as we're using Zustand store
 import { useSession } from 'next-auth/react';
-import { toast } from 'sonner';
+import { toast } from 'react-hot-toast';
 import { formatPrice } from '@/lib/utils';
+import { useCartStore } from '@/lib/store';
 
 interface ProductImage {
   url: string;
@@ -48,10 +49,10 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, className }: ProductCardProps) {
-  const { addToCart } = useCart();
   const { data: session } = useSession();
-  const [loading, setLoading] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const { addToCart, removeFromCart, isItemInCart, loading } = useCartStore();
+  const [isInCart, setIsInCart] = useState(false);
 
   const primaryImage = product.images?.find(img => img.isPrimary) || product.images?.[0];
   const hasDiscount = product.comparePrice && product.comparePrice > product.price;
@@ -59,20 +60,27 @@ export function ProductCard({ product, className }: ProductCardProps) {
     ? Math.round(((Number(product.comparePrice) - Number(product.price)) / Number(product.comparePrice)) * 100)
     : 0;
 
-  const handleAddToCart = async (e: React.MouseEvent) => {
+  // Check if item is in cart when component mounts or cart changes
+  useEffect(() => {
+    setIsInCart(isItemInCart(product.id));
+  }, [isItemInCart, product.id]);
+
+  const handleToggleCart = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (loading) return;
-    setLoading(true);
+    
     try {
-      const result = await addToCart(product.id, 1);
-      if (result) {
-        toast.success('Added to cart!');
+      if (isInCart) {
+        // Find the cart item to remove
+        const cartItem = useCartStore.getState().items.find(item => item.productId === product.id);
+        if (cartItem) {
+          await removeFromCart(cartItem.id);
+        }
+      } else {
+        await addToCart(product.id, 1);
       }
     } catch (error) {
-      console.error('Error adding to cart:', error);
-      toast.error('Failed to add to cart');
-    } finally {
-      setLoading(false);
+      console.error('Error toggling cart:', error);
     }
   };
 
@@ -138,13 +146,13 @@ export function ProductCard({ product, className }: ProductCardProps) {
           {/* Quick Add to Cart */}
           <div className="absolute bottom-2 left-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
             <Button
-              onClick={handleAddToCart}
+              onClick={handleToggleCart}
               disabled={loading || product.quantity === 0}
-              className="w-full bg-white text-gray-900 hover:bg-gray-100"
+              className={`w-full ${isInCart ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-white text-gray-900 hover:bg-gray-100'}`}
               size="sm"
             >
               <ShoppingCart className="h-4 w-4 mr-2" />
-              {loading ? 'Adding...' : 'Add to Cart'}
+              {loading ? 'Processing...' : isInCart ? 'Remove from Cart' : 'Add to Cart'}
             </Button>
           </div>
         </div>

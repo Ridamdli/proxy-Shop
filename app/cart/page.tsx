@@ -1,6 +1,5 @@
 'use client';
 
-import { useCart } from '@/components/providers/cart-provider';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Minus, Plus, ShoppingCart, Trash2 } from 'lucide-react';
@@ -9,11 +8,18 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { formatPrice } from '@/lib/utils';
+import { useCartStore } from '@/lib/store';
+import { useEffect } from 'react';
 
 export default function CartPage() {
-  const { items, updateCartItem, removeFromCart, total } = useCart();
+  const { items, updateCartItem, removeFromCart, total, refreshCart } = useCartStore();
   const { data: session } = useSession();
   const router = useRouter();
+  
+  // Refresh cart data when component mounts
+  useEffect(() => {
+    refreshCart();
+  }, [refreshCart]);
 
   if (items.length === 0) {
     return (
