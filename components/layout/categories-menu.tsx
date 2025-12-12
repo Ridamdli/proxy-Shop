@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
+import Link from "next/link";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -8,34 +8,34 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu';
+} from "@/components/ui/navigation-menu";
 
 const categories = [
   {
-    name: 'Electronics',
-    slug: 'electronics',
+    name: "Electronics",
+    slug: "electronics",
     subcategories: [
-      { name: 'Smartphones', slug: 'smartphones' },
-      { name: 'Laptops', slug: 'laptops' },
-      { name: 'Accessories', slug: 'electronics-accessories' },
+      { name: "Smartphones", slug: "smartphones" },
+      { name: "Laptops", slug: "laptops" },
+      { name: "Accessories", slug: "electronics-accessories" },
     ],
   },
   {
-    name: 'Clothing',
-    slug: 'clothing',
+    name: "Clothing",
+    slug: "clothing",
     subcategories: [
-      { name: 'Men', slug: 'mens-clothing' },
-      { name: 'Women', slug: 'womens-clothing' },
-      { name: 'Kids', slug: 'kids-clothing' },
+      { name: "Men", slug: "mens-clothing" },
+      { name: "Women", slug: "womens-clothing" },
+      { name: "Kids", slug: "kids-clothing" },
     ],
   },
   {
-    name: 'Home & Living',
-    slug: 'home-living',
+    name: "Home & Living",
+    slug: "home-living",
     subcategories: [
-      { name: 'Furniture', slug: 'furniture' },
-      { name: 'Decor', slug: 'home-decor' },
-      { name: 'Kitchen', slug: 'kitchen' },
+      { name: "Furniture", slug: "furniture" },
+      { name: "Decor", slug: "home-decor" },
+      { name: "Kitchen", slug: "kitchen" },
     ],
   },
 ];

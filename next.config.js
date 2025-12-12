@@ -3,13 +3,13 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  images: { 
+  images: {
     unoptimized: true,
-    domains: ['images.pexels.com', 'via.placeholder.com']
+    domains: ["images.pexels.com", "via.placeholder.com"],
   },
   experimental: {
-    serverComponentsExternalPackages: ['@prisma/client', 'bcryptjs']
-  }
+    serverComponentsExternalPackages: ["@prisma/client", "bcryptjs"],
+  },
 };
 
 module.exports = nextConfig;

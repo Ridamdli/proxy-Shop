@@ -1,7 +1,15 @@
-import Link from 'next/link';
-import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import Link from "next/link";
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export function Footer() {
   return (
@@ -17,20 +25,36 @@ export function Footer() {
               <span className="text-xl font-bold">ShopHub</span>
             </div>
             <p className="text-gray-400 text-sm">
-              Your one-stop destination for quality products at unbeatable prices. 
-              Shop with confidence and enjoy fast, reliable delivery.
+              Your one-stop destination for quality products at unbeatable
+              prices. Shop with confidence and enjoy fast, reliable delivery.
             </p>
             <div className="flex space-x-4">
-              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-gray-400 hover:text-white"
+              >
                 <Facebook className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-gray-400 hover:text-white"
+              >
                 <Twitter className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-gray-400 hover:text-white"
+              >
                 <Instagram className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-gray-400 hover:text-white"
+              >
                 <Youtube className="h-5 w-5" />
               </Button>
             </div>
@@ -41,27 +65,42 @@ export function Footer() {
             <h3 className="text-lg font-semibold">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/about" className="text-gray-400 hover:text-white text-sm">
+                <Link
+                  href="/about"
+                  className="text-gray-400 hover:text-white text-sm"
+                >
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-400 hover:text-white text-sm">
+                <Link
+                  href="/contact"
+                  className="text-gray-400 hover:text-white text-sm"
+                >
                   Contact Us
                 </Link>
               </li>
               <li>
-                <Link href="/careers" className="text-gray-400 hover:text-white text-sm">
+                <Link
+                  href="/careers"
+                  className="text-gray-400 hover:text-white text-sm"
+                >
                   Careers
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-gray-400 hover:text-white text-sm">
+                <Link
+                  href="/blog"
+                  className="text-gray-400 hover:text-white text-sm"
+                >
                   Blog
                 </Link>
               </li>
               <li>
-                <Link href="/affiliate" className="text-gray-400 hover:text-white text-sm">
+                <Link
+                  href="/affiliate"
+                  className="text-gray-400 hover:text-white text-sm"
+                >
                   Affiliate Program
                 </Link>
               </li>
@@ -73,27 +112,42 @@ export function Footer() {
             <h3 className="text-lg font-semibold">Customer Service</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/help" className="text-gray-400 hover:text-white text-sm">
+                <Link
+                  href="/help"
+                  className="text-gray-400 hover:text-white text-sm"
+                >
                   Help Center
                 </Link>
               </li>
               <li>
-                <Link href="/returns" className="text-gray-400 hover:text-white text-sm">
+                <Link
+                  href="/returns"
+                  className="text-gray-400 hover:text-white text-sm"
+                >
                   Returns & Refunds
                 </Link>
               </li>
               <li>
-                <Link href="/shipping" className="text-gray-400 hover:text-white text-sm">
+                <Link
+                  href="/shipping"
+                  className="text-gray-400 hover:text-white text-sm"
+                >
                   Shipping Info
                 </Link>
               </li>
               <li>
-                <Link href="/track-order" className="text-gray-400 hover:text-white text-sm">
+                <Link
+                  href="/track-order"
+                  className="text-gray-400 hover:text-white text-sm"
+                >
                   Track Your Order
                 </Link>
               </li>
               <li>
-                <Link href="/size-guide" className="text-gray-400 hover:text-white text-sm">
+                <Link
+                  href="/size-guide"
+                  className="text-gray-400 hover:text-white text-sm"
+                >
                   Size Guide
                 </Link>
               </li>
@@ -117,9 +171,11 @@ export function Footer() {
                 <span>Available 24/7</span>
               </div>
             </div>
-            
+
             <div className="space-y-2">
-              <p className="text-sm text-gray-400">Subscribe to our newsletter</p>
+              <p className="text-sm text-gray-400">
+                Subscribe to our newsletter
+              </p>
               <div className="flex space-x-2">
                 <Input
                   type="email"

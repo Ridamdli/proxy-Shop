@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Slider } from '@/components/ui/slider';
-import { Checkbox } from '@/components/ui/checkbox';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { useState } from "react";
+import { Slider } from "@/components/ui/slider";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Category {
   id: string;
@@ -19,7 +19,10 @@ interface FilterSidebarProps {
   }) => void;
 }
 
-export function FilterSidebar({ categories, onFilterChange }: FilterSidebarProps) {
+export function FilterSidebar({
+  categories,
+  onFilterChange,
+}: FilterSidebarProps) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
 
@@ -27,7 +30,7 @@ export function FilterSidebar({ categories, onFilterChange }: FilterSidebarProps
     const newCategories = checked
       ? [...selectedCategories, categoryId]
       : selectedCategories.filter((id) => id !== categoryId);
-    
+
     setSelectedCategories(newCategories);
     onFilterChange({ categories: newCategories, priceRange });
   };

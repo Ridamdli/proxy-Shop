@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { useSession, signIn, signOut } from 'next-auth/react';
-import { Menu, X } from 'lucide-react';
-import { CartIconBadge } from '@/components/cart/cart-icon-badge';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useState } from "react";
+import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { Menu, X } from "lucide-react";
+import { CartIconBadge } from "@/components/cart/cart-icon-badge";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
 export function Navbar() {
   const { data: session } = useSession();
@@ -84,7 +84,7 @@ export function Navbar() {
             >
               Contact
             </Link>
-            
+
             <CartIconBadge />
 
             {session ? (
@@ -93,7 +93,7 @@ export function Navbar() {
                   <Avatar>
                     <AvatarImage src={session.user?.image || undefined} />
                     <AvatarFallback>
-                      {session.user?.name?.[0] || 'U'}
+                      {session.user?.name?.[0] || "U"}
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
@@ -114,9 +114,7 @@ export function Navbar() {
                 <Button variant="outline" onClick={() => signIn()}>
                   Sign In
                 </Button>
-                <Button onClick={() => signIn()}>
-                  Sign Up
-                </Button>
+                <Button onClick={() => signIn()}>Sign Up</Button>
               </div>
             )}
           </div>
@@ -178,7 +176,7 @@ export function Navbar() {
               >
                 Contact
               </Link>
-              
+
               <div className="py-2">
                 <CartIconBadge />
               </div>

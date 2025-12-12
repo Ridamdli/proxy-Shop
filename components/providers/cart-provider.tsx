@@ -32,7 +32,7 @@ interface CartContextType {
   addToCart: (
     productId: string,
     quantity?: number,
-    variantId?: string
+    variantId?: string,
   ) => Promise<void>;
   updateCartItem: (itemId: string, quantity: number) => Promise<void>;
   removeFromCart: (itemId: string) => Promise<void>;
@@ -77,7 +77,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const addToCart = async (
     productId: string,
     quantity: number = 1,
-    variantId?: string
+    variantId?: string,
   ) => {
     try {
       const response = await fetch("/api/cart", {

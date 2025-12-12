@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useCartStoreInit } from '@/hooks/use-cart-store-init';
+import { useCartStoreInit } from "@/hooks/use-cart-store-init";
 
 /**
  * Component that initializes the cart store
@@ -9,7 +9,7 @@ import { useCartStoreInit } from '@/hooks/use-cart-store-init';
 export function CartStoreInitializer() {
   // Initialize the cart store
   useCartStoreInit();
-  
+
   // This component doesn't render anything
   return null;
 }

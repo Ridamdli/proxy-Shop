@@ -87,8 +87,8 @@ async function getProducts(searchParams: SearchParams) {
         searchParams.sort === "price_asc"
           ? { price: "asc" }
           : searchParams.sort === "price_desc"
-          ? { price: "desc" }
-          : { createdAt: "desc" },
+            ? { price: "desc" }
+            : { createdAt: "desc" },
       skip,
       take: limit,
     }),
@@ -119,9 +119,8 @@ export default async function ShopPage({
 }: {
   searchParams: SearchParams;
 }) {
-  const { products, total, pages, currentPage } = await getProducts(
-    searchParams
-  );
+  const { products, total, pages, currentPage } =
+    await getProducts(searchParams);
   const categories = await getCategories();
 
   return (
@@ -217,7 +216,7 @@ export default async function ShopPage({
                               {page}
                             </PaginationLink>
                           </PaginationItem>
-                        )
+                        ),
                       )}
                       {currentPage < pages && (
                         <PaginationItem>
