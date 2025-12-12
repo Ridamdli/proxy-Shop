@@ -3,6 +3,7 @@
 A modern, full-stack e-commerce platform built with Next.js, Prisma, Tailwind CSS, and PostgreSQL.
 
 ## Features
+
 - 🛒 Modern shopping experience with product catalog, cart, and checkout
 - 🔒 Authentication and user accounts
 - 📦 Product management and categories
@@ -11,6 +12,7 @@ A modern, full-stack e-commerce platform built with Next.js, Prisma, Tailwind CS
 - ⚡ Fast, responsive, and mobile-friendly UI
 
 ## Tech Stack
+
 - **Frontend:** Next.js (App Router), React, Tailwind CSS
 - **Backend:** Next.js API routes, Prisma ORM
 - **Database:** PostgreSQL
@@ -39,15 +41,18 @@ A modern, full-stack e-commerce platform built with Next.js, Prisma, Tailwind CS
    ```
 
 ## Scripts
+
 - `npm run dev` — Start development server
 - `npm run build` — Build for production
 - `npm run start` — Start production server
 - `npx prisma studio` — Open Prisma Studio (DB GUI)
 
 ## Contributing
+
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
+
 [MIT](LICENSE)
 
 ---

@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useState } from 'react';
-import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
-import { useDebouncedCallback } from 'use-debounce';
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
+import { useDebouncedCallback } from "use-debounce";
 
 export function SearchBar() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
 
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams.toString());
     if (term) {
-      params.set('q', term);
+      params.set("q", term);
     } else {
-      params.delete('q');
+      params.delete("q");
     }
-    params.delete('page'); // Reset to first page on new search
+    params.delete("page"); // Reset to first page on new search
     router.push(`/shop?${params.toString()}`);
   }, 300);
 
@@ -27,7 +27,7 @@ export function SearchBar() {
       setSearchQuery(term);
       handleSearch(term);
     },
-    [handleSearch]
+    [handleSearch],
   );
 
   return (

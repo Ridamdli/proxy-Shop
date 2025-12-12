@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { Heart, ShoppingCart, Star, Eye } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
+import Image from "next/image";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { Heart, ShoppingCart, Star, Eye } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 // Removed useCart import as we're using Zustand store
-import { useSession } from 'next-auth/react';
-import { toast } from 'react-hot-toast';
-import { formatPrice } from '@/lib/utils';
-import { useCartStore } from '@/lib/store';
+import { useSession } from "next-auth/react";
+import { toast } from "react-hot-toast";
+import { formatPrice } from "@/lib/utils";
+import { useCartStore } from "@/lib/store";
 
 interface ProductImage {
   url: string;
@@ -54,10 +54,16 @@ export function ProductCard({ product, className }: ProductCardProps) {
   const { addToCart, removeFromCart, isItemInCart, loading } = useCartStore();
   const [isInCart, setIsInCart] = useState(false);
 
-  const primaryImage = product.images?.find(img => img.isPrimary) || product.images?.[0];
-  const hasDiscount = product.comparePrice && product.comparePrice > product.price;
-  const discountPercentage = hasDiscount 
-    ? Math.round(((Number(product.comparePrice) - Number(product.price)) / Number(product.comparePrice)) * 100)
+  const primaryImage =
+    product.images?.find((img) => img.isPrimary) || product.images?.[0];
+  const hasDiscount =
+    product.comparePrice && product.comparePrice > product.price;
+  const discountPercentage = hasDiscount
+    ? Math.round(
+        ((Number(product.comparePrice) - Number(product.price)) /
+          Number(product.comparePrice)) *
+          100,
+      )
     : 0;
 
   // Check if item is in cart when component mounts or cart changes
@@ -68,11 +74,13 @@ export function ProductCard({ product, className }: ProductCardProps) {
   const handleToggleCart = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (loading) return;
-    
+
     try {
       if (isInCart) {
         // Find the cart item to remove
-        const cartItem = useCartStore.getState().items.find(item => item.productId === product.id);
+        const cartItem = useCartStore
+          .getState()
+          .items.find((item) => item.productId === product.id);
         if (cartItem) {
           await removeFromCart(cartItem.id);
         }
@@ -80,23 +88,25 @@ export function ProductCard({ product, className }: ProductCardProps) {
         await addToCart(product.id, 1);
       }
     } catch (error) {
-      console.error('Error toggling cart:', error);
+      console.error("Error toggling cart:", error);
     }
   };
 
   const handleToggleWishlist = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (!session) {
-      toast.error('Please sign in to add to wishlist');
+      toast.error("Please sign in to add to wishlist");
       return;
     }
     // TODO: Implement wishlist functionality
     setIsWishlisted(!isWishlisted);
-    toast.success(isWishlisted ? 'Removed from wishlist' : 'Added to wishlist');
+    toast.success(isWishlisted ? "Removed from wishlist" : "Added to wishlist");
   };
 
   return (
-    <Card className={`group hover:shadow-lg transition-shadow duration-200 ${className}`}>
+    <Card
+      className={`group hover:shadow-lg transition-shadow duration-200 ${className}`}
+    >
       <Link href={`/products/${product.slug}`}>
         <div className="relative overflow-hidden rounded-t-lg">
           <div className="aspect-square relative bg-gray-100">
@@ -140,7 +150,9 @@ export function ProductCard({ product, className }: ProductCardProps) {
             className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white hover:bg-gray-100"
             onClick={handleToggleWishlist}
           >
-            <Heart className={`h-4 w-4 ${isWishlisted ? 'fill-red-500 text-red-500' : ''}`} />
+            <Heart
+              className={`h-4 w-4 ${isWishlisted ? "fill-red-500 text-red-500" : ""}`}
+            />
           </Button>
 
           {/* Quick Add to Cart */}
@@ -148,11 +160,15 @@ export function ProductCard({ product, className }: ProductCardProps) {
             <Button
               onClick={handleToggleCart}
               disabled={loading || product.quantity === 0}
-              className={`w-full ${isInCart ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-white text-gray-900 hover:bg-gray-100'}`}
+              className={`w-full ${isInCart ? "bg-red-500 text-white hover:bg-red-600" : "bg-white text-gray-900 hover:bg-gray-100"}`}
               size="sm"
             >
               <ShoppingCart className="h-4 w-4 mr-2" />
-              {loading ? 'Processing...' : isInCart ? 'Remove from Cart' : 'Add to Cart'}
+              {loading
+                ? "Processing..."
+                : isInCart
+                  ? "Remove from Cart"
+                  : "Add to Cart"}
             </Button>
           </div>
         </div>
@@ -180,8 +196,8 @@ export function ProductCard({ product, className }: ProductCardProps) {
                       key={i}
                       className={`h-3 w-3 ${
                         i < Math.floor(Number(product.ratingAverage))
-                          ? 'text-yellow-400 fill-current'
-                          : 'text-gray-300'
+                          ? "text-yellow-400 fill-current"
+                          : "text-gray-300"
                       }`}
                     />
                   ))}

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useCartStore } from '@/lib/store';
+import { useEffect } from "react";
+import { useCartStore } from "@/lib/store";
 
 /**
  * Custom hook to initialize the cart store

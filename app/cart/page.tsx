@@ -1,21 +1,22 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Minus, Plus, ShoppingCart, Trash2 } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
-import { formatPrice } from '@/lib/utils';
-import { useCartStore } from '@/lib/store';
-import { useEffect } from 'react';
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { formatPrice } from "@/lib/utils";
+import { useCartStore } from "@/lib/store";
+import { useEffect } from "react";
 
 export default function CartPage() {
-  const { items, updateCartItem, removeFromCart, total, refreshCart } = useCartStore();
+  const { items, updateCartItem, removeFromCart, total, refreshCart } =
+    useCartStore();
   const { data: session } = useSession();
   const router = useRouter();
-  
+
   // Refresh cart data when component mounts
   useEffect(() => {
     refreshCart();
@@ -27,7 +28,9 @@ export default function CartPage() {
         <div className="text-center">
           <ShoppingCart className="mx-auto h-16 w-16 text-gray-400" />
           <h2 className="mt-4 text-2xl font-semibold">Your cart is empty</h2>
-          <p className="mt-2 text-gray-600">Add some products to your cart to get started</p>
+          <p className="mt-2 text-gray-600">
+            Add some products to your cart to get started
+          </p>
           <Button asChild className="mt-8">
             <Link href="/shop">Continue Shopping</Link>
           </Button>
@@ -46,11 +49,11 @@ export default function CartPage() {
 
   const handleCheckout = () => {
     if (!session) {
-      router.push('/auth/signin?callbackUrl=/cart');
+      router.push("/auth/signin?callbackUrl=/cart");
       return;
     }
     // TODO: Implement checkout flow
-    router.push('/checkout');
+    router.push("/checkout");
   };
 
   return (
@@ -96,7 +99,9 @@ export default function CartPage() {
                   <Button
                     variant="outline"
                     size="icon"
-                    onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                    onClick={() =>
+                      handleQuantityChange(item.id, item.quantity - 1)
+                    }
                   >
                     <Minus className="h-4 w-4" />
                   </Button>
@@ -104,7 +109,9 @@ export default function CartPage() {
                   <Button
                     variant="outline"
                     size="icon"
-                    onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                    onClick={() =>
+                      handleQuantityChange(item.id, item.quantity + 1)
+                    }
                   >
                     <Plus className="h-4 w-4" />
                   </Button>
@@ -148,18 +155,10 @@ export default function CartPage() {
                 </div>
               </div>
             </div>
-            <Button
-              className="w-full mt-6"
-              size="lg"
-              onClick={handleCheckout}
-            >
-              {session ? 'Proceed to Checkout' : 'Sign in to Checkout'}
+            <Button className="w-full mt-6" size="lg" onClick={handleCheckout}>
+              {session ? "Proceed to Checkout" : "Sign in to Checkout"}
             </Button>
-            <Button
-              variant="outline"
-              className="w-full mt-2"
-              asChild
-            >
+            <Button variant="outline" className="w-full mt-2" asChild>
               <Link href="/shop">Continue Shopping</Link>
             </Button>
           </Card>

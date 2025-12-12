@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { ArrowRight, Truck, Shield, Headphones, RotateCcw } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { ProductCard } from '@/components/products/product-card';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { ArrowRight, Truck, Shield, Headphones, RotateCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { ProductCard } from "@/components/products/product-card";
 
 interface Product {
   id: string;
@@ -47,17 +47,19 @@ export default function HomePage() {
   const fetchHomeData = async () => {
     try {
       // Fetch featured products
-      const productsResponse = await fetch('/api/products?featured=true&limit=8');
+      const productsResponse = await fetch(
+        "/api/products?featured=true&limit=8",
+      );
       const productsData = await productsResponse.json();
 
       // Fetch main categories
-      const categoriesResponse = await fetch('/api/categories?parentId=null');
+      const categoriesResponse = await fetch("/api/categories?parentId=null");
       const categoriesData = await categoriesResponse.json();
 
       setFeaturedProducts(productsData.products || []);
       setCategories(categoriesData.categories || []);
     } catch (error) {
-      console.error('Error fetching home data:', error);
+      console.error("Error fetching home data:", error);
     } finally {
       setLoading(false);
     }
@@ -81,20 +83,27 @@ export default function HomePage() {
               Discover Amazing Products
             </h1>
             <p className="text-xl mb-8 text-blue-100">
-              Shop the latest trends and bestsellers with unbeatable prices, 
+              Shop the latest trends and bestsellers with unbeatable prices,
               fast shipping, and exceptional customer service.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100" asChild>
+              <Button
+                size="lg"
+                className="bg-white text-blue-600 hover:bg-gray-100"
+                asChild
+              >
                 <Link href="/shop">
                   Shop Now
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600" asChild>
-                <Link href="/categories">
-                  View Categories
-                </Link>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white hover:text-blue-600"
+                asChild
+              >
+                <Link href="/categories">View Categories</Link>
               </Button>
             </div>
           </div>
@@ -110,37 +119,45 @@ export default function HomePage() {
                 <Truck className="h-6 w-6 text-blue-600" />
               </div>
               <h3 className="font-semibold">Free Shipping</h3>
-              <p className="text-sm text-gray-600">Free shipping on orders over $50</p>
+              <p className="text-sm text-gray-600">
+                Free shipping on orders over $50
+              </p>
             </CardContent>
           </Card>
-          
+
           <Card className="text-center p-6">
             <CardContent className="space-y-4">
               <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
                 <Shield className="h-6 w-6 text-green-600" />
               </div>
               <h3 className="font-semibold">Secure Payment</h3>
-              <p className="text-sm text-gray-600">Your payment information is safe</p>
+              <p className="text-sm text-gray-600">
+                Your payment information is safe
+              </p>
             </CardContent>
           </Card>
-          
+
           <Card className="text-center p-6">
             <CardContent className="space-y-4">
               <div className="mx-auto w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
                 <Headphones className="h-6 w-6 text-purple-600" />
               </div>
               <h3 className="font-semibold">24/7 Support</h3>
-              <p className="text-sm text-gray-600">Get help whenever you need it</p>
+              <p className="text-sm text-gray-600">
+                Get help whenever you need it
+              </p>
             </CardContent>
           </Card>
-          
+
           <Card className="text-center p-6">
             <CardContent className="space-y-4">
               <div className="mx-auto w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
                 <RotateCcw className="h-6 w-6 text-orange-600" />
               </div>
               <h3 className="font-semibold">Easy Returns</h3>
-              <p className="text-sm text-gray-600">30-day hassle-free returns</p>
+              <p className="text-sm text-gray-600">
+                30-day hassle-free returns
+              </p>
             </CardContent>
           </Card>
         </div>
@@ -151,9 +168,11 @@ export default function HomePage() {
         <section className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Shop by Category</h2>
-            <p className="text-gray-600">Find exactly what you're looking for</p>
+            <p className="text-gray-600">
+              Find exactly what you're looking for
+            </p>
           </div>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {categories.map((category) => (
               <Link key={category.id} href={`/categories/${category.slug}`}>
@@ -161,8 +180,8 @@ export default function HomePage() {
                   <CardContent className="p-6 text-center">
                     <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center group-hover:bg-blue-50 transition-colors">
                       {category.imageUrl ? (
-                        <img 
-                          src={category.imageUrl} 
+                        <img
+                          src={category.imageUrl}
                           alt={category.name}
                           className="w-8 h-8 object-contain"
                         />
@@ -188,7 +207,7 @@ export default function HomePage() {
             <h2 className="text-3xl font-bold mb-4">Featured Products</h2>
             <p className="text-gray-600">Handpicked favorites just for you</p>
           </div>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
@@ -212,7 +231,8 @@ export default function HomePage() {
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-4">Stay in the Loop</h2>
             <p className="text-gray-600 mb-8">
-              Subscribe to our newsletter for exclusive deals, new arrivals, and shopping tips.
+              Subscribe to our newsletter for exclusive deals, new arrivals, and
+              shopping tips.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input

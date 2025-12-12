@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { ShoppingCart } from 'lucide-react';
-import { useCartStore } from '@/lib/store';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { ShoppingCart } from "lucide-react";
+import { useCartStore } from "@/lib/store";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export function CartIconBadge() {
   // Use only the Zustand store
   const { count, refreshCart } = useCartStore();
   // Add client-side state to prevent hydration mismatch
   const [mounted, setMounted] = useState(false);
-  
+
   // Sync with the server on mount
   useEffect(() => {
     setMounted(true);

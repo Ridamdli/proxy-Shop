@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useSession, signOut } from 'next-auth/react';
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 import {
   Search,
   ShoppingCart,
@@ -12,9 +12,9 @@ import {
   X,
   Heart,
   MapPin,
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,18 +22,18 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Badge } from '@/components/ui/badge';
-import { useCartStore } from '@/lib/store';
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
+import { useCartStore } from "@/lib/store";
 
 export function Header() {
   const router = useRouter();
   const { data: session } = useSession();
   const cartCount = useCartStore((state) => state.count);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [mounted, setMounted] = useState(false);
-  
+
   // Set mounted state to true after component mounts
   useEffect(() => {
     setMounted(true);
@@ -43,12 +43,12 @@ export function Header() {
     e.preventDefault();
     if (searchQuery.trim()) {
       router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery('');
+      setSearchQuery("");
     }
   };
 
   const handleSignOut = async () => {
-    await signOut({ callbackUrl: '/' });
+    await signOut({ callbackUrl: "/" });
   };
 
   return (
@@ -83,7 +83,10 @@ export function Header() {
           </Link>
 
           {/* Search Bar */}
-          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-2xl mx-8">
+          <form
+            onSubmit={handleSearch}
+            className="hidden md:flex flex-1 max-w-2xl mx-8"
+          >
             <div className="relative w-full">
               <Input
                 type="text"
@@ -123,7 +126,7 @@ export function Header() {
               {/* Only render the count badge on the client side after mounting */}
               {mounted && cartCount > 0 && (
                 <div className="absolute -top-2 -right-2 flex h-5 w-5 min-w-[1.25rem] items-center justify-center rounded-full bg-blue-600 text-xs font-medium text-white">
-                  {cartCount > 99 ? '99+' : cartCount}
+                  {cartCount > 99 ? "99+" : cartCount}
                 </div>
               )}
             </div>
@@ -132,10 +135,14 @@ export function Header() {
             {session ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="flex items-center space-x-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex items-center space-x-2"
+                  >
                     <User className="h-5 w-5" />
                     <span className="hidden md:inline">
-                      {session.user?.name || session.user?.email?.split('@')[0]}
+                      {session.user?.name || session.user?.email?.split("@")[0]}
                     </span>
                   </Button>
                 </DropdownMenuTrigger>
@@ -151,7 +158,7 @@ export function Header() {
                   <DropdownMenuItem asChild>
                     <Link href="/wishlist">My Wishlist</Link>
                   </DropdownMenuItem>
-                  {session.user?.role === 'ADMIN' && (
+                  {session.user?.role === "ADMIN" && (
                     <>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem asChild>
@@ -166,7 +173,12 @@ export function Header() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button variant="ghost" size="sm" asChild className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className="flex items-center space-x-2"
+              >
                 <Link href="/auth/signin">
                   <User className="h-5 w-5" />
                   <span className="hidden md:inline">Sign In</span>
@@ -181,7 +193,11 @@ export function Header() {
               className="md:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {mobileMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
